@@ -1,0 +1,10 @@
+{
+    "type": "web",
+    "fields": [
+        {
+            "name": "title",
+            "length": 100,
+            "type": "string"
+        }
+    ]
+}
