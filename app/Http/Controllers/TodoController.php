@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTodo;
 use App\Todo;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
+use Exception;
 
 class TodoController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function index()
     {
@@ -23,7 +27,7 @@ class TodoController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function create()
     {
@@ -33,10 +37,10 @@ class TodoController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  StoreTodo  $request
+     * @return Response
      */
-    public function store(Request $request)
+    public function store(StoreTodo $request)
     {
         $todo = Todo::create($request->all());
         return response()->json([
@@ -48,8 +52,8 @@ class TodoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Todo $todo
+     * @return View
      */
     public function show(Todo $todo)
     {
@@ -59,8 +63,9 @@ class TodoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Todo $todo
+     * @param Request $request
+     * @return View
      */
     public function edit(Todo $todo, Request $request)
     {
@@ -70,9 +75,9 @@ class TodoController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Todo  $todo
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @param  Todo  $todo
+     * @return Response
      */
     public function update(Request $request, Todo $todo)
     {
@@ -86,8 +91,9 @@ class TodoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Todo  $todo
-     * @return \Illuminate\Http\Response
+     * @param Todo $todo
+     * @throws Exception
+     * @return Redirect
      */
     public function destroy(Todo $todo)
     {
